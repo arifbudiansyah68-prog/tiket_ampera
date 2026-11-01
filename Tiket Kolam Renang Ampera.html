@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kolam Renang Ampera – Tiket Online</title>
+<style>
+:root{--bg:#f3f9fc;--card:#fff;--tx:#0b2a3a;--mut:#5b7685;--pri:#0891b2;--pri2:#0e7490;--bd:#d5e6ee;--ok:#16a34a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#08202b;--card:#0f2e3c;--tx:#e6f4fa;--mut:#8fb0bf;--pri:#22c5e8;--pri2:#67d9f2;--bd:#1d4557}}
+:root[data-theme="dark"]{--bg:#08202b;--card:#0f2e3c;--tx:#e6f4fa;--mut:#8fb0bf;--pri:#22c5e8;--pri2:#67d9f2;--bd:#1d4557}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:linear-gradient(135deg,#0e7490,#0891b2 60%,#22c5e8);color:#fff;padding:36px 20px 56px;text-align:center}
+header h1{margin:0 0 6px;font-size:clamp(26px,6vw,40px)}
+header p{margin:0;opacity:.92}
+main{max-width:880px;margin:-32px auto 40px;padding:0 16px;display:grid;gap:16px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:18px}
+h2{margin:0 0 12px;font-size:18px}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;color:var(--mut);font-size:14px}
+.info b{display:block;color:var(--tx)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--bd)}
+.row:last-child{border:0}
+.row small{display:block;color:var(--mut)}
+.qty{display:flex;align-items:center;gap:10px}
+.qty button{width:36px;height:36px;border-radius:50%;border:1px solid var(--pri);background:transparent;color:var(--pri);font-size:20px;cursor:pointer}
+.qty output{min-width:22px;text-align:center;font-weight:700}
+label{display:block;font-size:14px;color:var(--mut);margin-bottom:4px}
+input{width:100%;padding:11px 12px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.total{display:flex;justify-content:space-between;align-items:center;font-size:20px;font-weight:700;margin:6px 0 14px}
+.btn{width:100%;padding:14px;border:0;border-radius:12px;background:var(--pri2);color:#fff;font:700 16px inherit;font-family:inherit;cursor:pointer}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--pri2);border:1px solid var(--pri2);margin-top:8px}
+.err{color:#dc2626;font-size:14px;min-height:20px;margin:6px 0}
+.tiket{border:2px dashed var(--pri);border-radius:14px;padding:18px;text-align:center}
+.tiket .kode{font:700 28px/1.2 ui-monospace,Menlo,monospace;letter-spacing:2px;color:var(--pri2);margin:8px 0}
+.tiket dl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;text-align:left;max-width:360px;margin:12px auto}
+.tiket dt{color:var(--mut)}.tiket dd{margin:0;font-weight:600}
+.badge{display:inline-block;background:var(--ok);color:#fff;border-radius:99px;padding:2px 12px;font-size:13px}
+.bar{display:block;margin:10px auto;max-width:100%}
+.hide{display:none}
+.hist{font-size:14px;color:var(--mut)}
+.hist button{background:none;border:0;color:var(--pri2);cursor:pointer;font:inherit;text-decoration:underline}
+footer{text-align:center;color:var(--mut);font-size:13px;padding:0 16px 28px}
+@media print{header,#pesan,#riwayat,footer,.noprint{display:none!important}main{margin:0}}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.tabs button{padding:8px 14px;border:1px solid var(--pri2);border-radius:99px;background:transparent;color:var(--pri2);font:inherit;cursor:pointer}
+.tabs button.on{background:var(--pri2);color:#fff}
+.stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:12px 0}
+.stat div{background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:10px}
+.stat small{color:var(--mut);display:block}.stat b{font-size:18px}
+.chart{display:flex;align-items:flex-end;gap:6px;height:150px;margin:12px 0;overflow-x:auto}
+.chart div{flex:1 0 34px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;font-size:11px;color:var(--mut)}
+.chart i{display:block;width:100%;background:var(--pri);border-radius:4px 4px 0 0;min-height:2px}
+#login{max-width:360px}
+svg.ch{width:100%;height:auto;display:block}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:8px;border-bottom:1px solid var(--bd);text-align:left;white-space:nowrap}
+.sm{width:auto;padding:6px 10px;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+  <h1>🏊 Kolam Renang Ampera</h1>
+  <p>Pesan tiket online, tanpa antre di loket</p>
+</header>
+<main>
+  <section class="card info">
+    <div><b>Jam buka</b>07.00 – 17.00 WIB</div>
+    <div><b>Hari kerja</b>Senin – Jumat</div>
+    <div><b>Akhir pekan</b>Sabtu, Minggu &amp; libur</div>
+    <div><b>Catatan</b>Wajib berpakaian renang</div>
+  </section>
+
+  <section class="card" id="pesan">
+    <h2>1. Pilih tiket</h2>
+    <div id="jenis"></div>
+    <h2 style="margin-top:18px">2. Tanggal &amp; data pemesan</h2>
+    <div class="grid">
+      <div><label for="tgl">Tanggal kunjungan</label><input type="date" id="tgl"></div>
+      <div><label for="nama">Nama lengkap</label><input id="nama" placeholder="Contoh: Budi Santoso" autocomplete="name"></div>
+      <div><label for="wa">No. WhatsApp</label><input id="wa" type="tel" placeholder="08xxxxxxxxxx" autocomplete="tel"></div>
+    </div>
+    <div class="err" id="err"></div>
+    <div class="total"><span>Total</span><span id="total">Rp 0</span></div>
+    <button class="btn" id="bayar" disabled>Pesan Tiket</button>
+  </section>
+
+  <section class="card hide" id="hasil">
+    <div class="tiket" id="tiket"></div>
+    <div class="noprint">
+      <button class="btn ghost" onclick="window.print()">Cetak / Simpan PDF</button>
+      <button class="btn ghost" id="baru">Pesan lagi</button>
+    </div>
+  </section>
+
+  <section class="card hide" id="admin">
+    <h2>🔐 Dashboard Admin</h2>
+    <div id="login" class="hide"></div>
+    <div id="dash" class="hide">
+    <div class="tabs" id="tabs">
+      <button data-t="jual" class="on">Penjualan</button>
+      <button data-t="beli">Riwayat pembelian</button>
+      <button data-t="book">Booking</button>
+    </div>
+    <div id="panel"></div>
+    <button class="btn ghost sm" id="csv" style="width:auto">Unduh CSV</button>
+    <button class="btn ghost sm" id="ganti" style="width:auto">Ganti password</button>
+    <button class="btn ghost sm" id="keluar" style="width:auto">Keluar</button>
+    </div>
+  </section>
+
+  <section class="card hide" id="riwayat">
+    <h2>Riwayat pesanan (di perangkat ini)</h2>
+    <div class="hist" id="hist"></div>
+  </section>
+</main>
+<footer>Demo sistem tiket. Harga dan jam operasional dapat diubah pada bagian <code>CONFIG</code> di kode.</footer>
+
+<script>
+// ===== CONFIG: ubah sesuai kondisi Kolam Renang Ampera =====
+const CONFIG = {
+  jenis: [
+    {id:'dewasa', nama:'Dewasa', ket:'Usia 13 tahun ke atas', harga:{kerja:15000, libur:20000}},
+    {id:'anak',   nama:'Anak-anak', ket:'Usia 3–12 tahun', harga:{kerja:10000, libur:15000}},
+    {id:'rombongan', nama:'Rombongan', ket:'Per orang, min. 10 orang', harga:{kerja:12000, libur:17000}, min:10}
+  ],
+  maxPerJenis: 50
+};
+// ===========================================================
+const $ = id => document.getElementById(id);
+const rp = n => 'Rp ' + n.toLocaleString('id-ID');
+const jumlah = {};
+CONFIG.jenis.forEach(j => jumlah[j.id] = 0);
+
+function isLibur(d){ const g = new Date(d + 'T00:00').getDay(); return g === 0 || g === 6; }
+function tarif(j){ return $('tgl').value && isLibur($('tgl').value) ? j.harga.libur : j.harga.kerja; }
+
+function render(){
+  $('jenis').innerHTML = CONFIG.jenis.map(j => `
+    <div class="row">
+      <div><b>${j.nama}</b><small>${j.ket} · ${rp(tarif(j))}</small></div>
+      <div class="qty">
+        <button type="button" data-id="${j.id}" data-d="-1" aria-label="Kurangi ${j.nama}">−</button>
+        <output>${jumlah[j.id]}</output>
+        <button type="button" data-id="${j.id}" data-d="1" aria-label="Tambah ${j.nama}">+</button>
+      </div>
+    </div>`).join('');
+  hitung();
+}
+
+function hitung(){
+  let total = 0, n = 0;
+  CONFIG.jenis.forEach(j => { total += jumlah[j.id] * tarif(j); n += jumlah[j.id]; });
+  $('total').textContent = rp(total);
+  $('bayar').disabled = n === 0;
+  return total;
+}
+
+$('jenis').addEventListener('click', e => {
+  const b = e.target.closest('button'); if(!b) return;
+  const id = b.dataset.id, d = +b.dataset.d;
+  jumlah[id] = Math.max(0, Math.min(CONFIG.maxPerJenis, jumlah[id] + d));
+  render();
+});
+
+const today = new Date(); today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+const iso = today.toISOString().slice(0,10);
+$('tgl').min = iso; $('tgl').value = iso;
+$('tgl').addEventListener('change', render);
+
+function kode(){
+  const c = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let s = '';
+  for(let i=0;i<6;i++) s += c[Math.floor(Math.random()*c.length)];
+  return 'AMP-' + s;
+}
+function barcode(k){
+  let x = 0, out = '';
+  for(let i=0;i<k.length*2;i++){
+    const w = 1 + ((k.charCodeAt(i % k.length) + i) % 3);
+    if(i % 2 === 0) out += `<rect x="${x}" y="0" width="${w}" height="40" fill="currentColor"/>`;
+    x += w + 1;
+  }
+  return `<svg class="bar" viewBox="0 0 ${x} 40" width="220" height="48" role="img" aria-label="Barcode ${k}">${out}</svg>`;
+}
+const tglIndo = d => new Date(d + 'T00:00').toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+function simpan(o){
+  try{
+    const l = JSON.parse(localStorage.getItem('ampera-tiket') || '[]'); l.unshift(o);
+    localStorage.setItem('ampera-tiket', JSON.stringify(l.slice(0,200)));
+  }catch(e){}
+}
+function muatRiwayat(){
+  let l = [];
+  try{ l = JSON.parse(localStorage.getItem('ampera-tiket') || '[]'); }catch(e){}
+  $('riwayat').classList.toggle('hide', !l.length);
+  $('hist').innerHTML = l.map((o,i) => `<div>${o.kode} · ${tglIndo(o.tgl)} · ${rp(o.total)} <button data-i="${i}">lihat</button></div>`).join('');
+  $('hist').onclick = e => { const b = e.target.closest('button'); if(b) tampil(l[+b.dataset.i]); };
+}
+
+function tampil(o){
+  $('tiket').innerHTML = `
+    <span class="badge">Berhasil dipesan</span>
+    <h2 style="margin:10px 0 0">Kolam Renang Ampera</h2>
+    <div class="kode">${o.kode}</div>
+    ${barcode(o.kode)}
+    <dl>
+      <dt>Nama</dt><dd>${esc(o.nama)}</dd>
+      <dt>WhatsApp</dt><dd>${esc(o.wa)}</dd>
+      <dt>Tanggal</dt><dd>${tglIndo(o.tgl)}</dd>
+      <dt>Tiket</dt><dd>${o.item.map(i => i.n + ' × ' + i.q).join(', ')}</dd>
+      <dt>Total</dt><dd>${rp(o.total)}</dd>
+    </dl>
+    <small style="color:var(--mut)">Tunjukkan kode ini di pintu masuk. Berlaku pada tanggal kunjungan.</small>`;
+  $('hasil').classList.remove('hide');
+  $('hasil').scrollIntoView({behavior:'smooth'});
+}
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+$('bayar').addEventListener('click', () => {
+  const nama = $('nama').value.trim(), wa = $('wa').value.replace(/[\s-]/g,'');
+  const tgl = $('tgl').value;
+  const rombong = CONFIG.jenis.find(j => j.min && jumlah[j.id] > 0 && jumlah[j.id] < j.min);
+  let e = '';
+  if(!tgl || tgl < iso) e = 'Pilih tanggal kunjungan yang valid.';
+  else if(nama.length < 3) e = 'Isi nama lengkap.';
+  else if(!/^(\+62|62|0)8\d{7,12}$/.test(wa)) e = 'Nomor WhatsApp tidak valid (contoh: 081234567890).';
+  else if(rombong) e = `Tiket ${rombong.nama} minimal ${rombong.min} orang.`;
+  $('err').textContent = e; if(e) return;
+
+  const o = {
+    kode: kode(), nama, wa, tgl, total: hitung(),
+    item: CONFIG.jenis.filter(j => jumlah[j.id] > 0).map(j => ({n:j.nama, q:jumlah[j.id]}))
+  };
+  o.dibuat = new Date().toISOString(); o.status = 'booking';
+  simpan(o); kirim(o); tampil(o); muatRiwayat();
+});
+$('baru').addEventListener('click', () => {
+  CONFIG.jenis.forEach(j => jumlah[j.id] = 0);
+  $('hasil').classList.add('hide'); render(); window.scrollTo({top:0,behavior:'smooth'});
+});
+
+// ===== Admin: hanya tampil untuk Editor/Pemilik halaman =====
+let DB = null, UID = null, checks = {}, orders = [], tab = 'jual', per = 'minggu', cari = '';
+async function kirim(o){
+  if(!DB || !UID) return;
+  try{ const l = JSON.parse(localStorage.getItem('ampera-tiket') || '[]'); await DB.doc('orders/' + UID).set({list:l}); }
+  catch(e){ $('err').textContent = 'Tiket tersimpan di perangkat ini, tetapi belum terkirim ke admin.'; }
+}
+(async () => {
+  try{
+    if(!window.claude) return;
+    const u = await claude.use('user'); DB = await claude.use('db');
+    if(!DB || !u) return;
+    UID = await u.id();
+    if(!(await u.canEdit())) return;
+    $('admin').classList.remove('hide');
+    gate();
+  }catch(e){}
+})();
+const pad = n => String(n).padStart(2,'0');
+const ymd = d => d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate());
+const jml = o => o.item.reduce((a,i) => a + i.q, 0);
+const wkt = t => new Date(t).toLocaleString('id-ID',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+function bucket(t){
+  const d = new Date(t);
+  if(per === 'tahun') return [d.getFullYear()+'', d.getFullYear()+''];
+  if(per === 'bulan') return [d.getFullYear()+'-'+pad(d.getMonth()+1), d.toLocaleDateString('id-ID',{month:'short',year:'2-digit'})];
+  const m = new Date(d.getFullYear(), d.getMonth(), d.getDate() - ((d.getDay()+6) % 7));
+  return [ymd(m), m.toLocaleDateString('id-ID',{day:'numeric',month:'short'})];
+}
+const juta = n => n >= 1e6 ? (n/1e6).toFixed(1).replace('.0','')+' jt' : n >= 1e3 ? Math.round(n/1e3)+' rb' : String(n);
+function kurva(rows){
+  const W = 640, H = 260, L = 52, R = 14, T = 16, B = 30;
+  const mx = Math.max(...rows.map(r => r.omzet), 1000), top = Math.ceil(mx/4/1000)*4000;
+  const x = i => L + (W-L-R) * (rows.length > 1 ? i/(rows.length-1) : .5), y = v => T + (H-T-B) * (1 - v/top);
+  let g = '';
+  for(let k=0;k<=4;k++){ const v = top*k/4; g += `<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--bd)"/><text x="${L-6}" y="${y(v)+4}" text-anchor="end" font-size="11" fill="var(--mut)">${juta(v)}</text>`; }
+  const pts = rows.map((r,i) => `${x(i).toFixed(1)},${y(r.omzet).toFixed(1)}`).join(' ');
+  const area = `${x(0)},${y(0)} ${pts} ${x(rows.length-1)},${y(0)}`;
+  const lab = rows.map((r,i) => `<text x="${x(i)}" y="${H-10}" text-anchor="middle" font-size="11" fill="var(--mut)">${r.l}</text>`).join('');
+  const dots = rows.map((r,i) => `<circle cx="${x(i)}" cy="${y(r.omzet)}" r="4" fill="var(--pri)"><title>${r.l}: ${rp(r.omzet)} · ${r.tiket} tiket</title></circle>`).join('');
+  return `<h3 style="margin:14px 0 4px;font-size:15px">Kurva pendapatan (revenue curve)</h3><svg class="ch" viewBox="0 0 ${W} ${H}" role="img" aria-label="Kurva pendapatan">${g}<polygon points="${area}" fill="var(--pri)" opacity=".15"/><polyline points="${pts}" fill="none" stroke="var(--pri)" stroke-width="2.5" stroke-linejoin="round"/>${dots}${lab}</svg>`;
+}
+function drawAdmin(){
+  const p = $('panel'), list = orders.map(o => ({...o, status: checks[o.kode] ? 'checkin' : 'booking'})).sort((a,b) => b.dibuat.localeCompare(a.dibuat));
+  [...$('tabs').children].forEach(b => b.classList.toggle('on', b.dataset.t === tab));
+  if(tab === 'jual'){
+    const m = {};
+    list.forEach(o => { const [k,l] = bucket(o.dibuat); (m[k] = m[k] || {l,omzet:0,tiket:0,n:0}); m[k].omzet += o.total; m[k].tiket += jml(o); m[k].n++; });
+    const rows = Object.keys(m).sort().slice(-12).map(k => m[k]);
+    const mx = Math.max(1, ...rows.map(r => r.omzet));
+    const tot = rows.reduce((a,r) => ({omzet:a.omzet+r.omzet,tiket:a.tiket+r.tiket,n:a.n+r.n}), {omzet:0,tiket:0,n:0});
+    p.innerHTML = `<div class="tabs">${['minggu','bulan','tahun'].map(x => `<button data-p="${x}" class="${x===per?'on':''}">${x==='minggu'?'Mingguan':x==='bulan'?'Bulanan':'Tahunan'}</button>`).join('')}</div>
+      <div class="stat"><div><small>Pendapatan</small><b>${rp(tot.omzet)}</b></div><div><small>Tiket terjual</small><b>${tot.tiket}</b></div><div><small>Transaksi</small><b>${tot.n}</b></div></div>
+      ${rows.length ? `${kurva(rows)}
+      <div class="tw"><table><tr><th>Periode</th><th>Transaksi</th><th>Tiket</th><th>Pendapatan</th></tr>${rows.slice().reverse().map(r => `<tr><td>${r.l}</td><td>${r.n}</td><td>${r.tiket}</td><td>${rp(r.omzet)}</td></tr>`).join('')}</table></div>` : '<p class="hist">Belum ada data penjualan.</p>'}`;
+    p.querySelector('.tabs').onclick = e => { const b = e.target.closest('button'); if(b){ per = b.dataset.p; drawAdmin(); } };
+  }else if(tab === 'beli'){
+    const q = cari.toLowerCase(), f = list.filter(o => !q || (o.nama + o.kode + o.wa).toLowerCase().includes(q));
+    p.innerHTML = `<input id="cari" placeholder="Cari nama, kode, atau WhatsApp" value="${esc(cari)}" style="margin-bottom:10px">
+      <div class="tw"><table><tr><th>Waktu beli</th><th>Kode</th><th>Nama</th><th>WhatsApp</th><th>Tiket</th><th>Total</th></tr>
+      ${f.map(o => `<tr><td>${wkt(o.dibuat)}</td><td>${o.kode}</td><td>${esc(o.nama)}</td><td>${esc(o.wa)}</td><td>${o.item.map(i => i.n+' ×'+i.q).join(', ')}</td><td>${rp(o.total)}</td></tr>`).join('')}</table></div>
+      ${f.length ? '' : '<p class="hist">Tidak ada data.</p>'}`;
+    const c = $('cari'); c.oninput = () => { cari = c.value; drawAdmin(); const n = $('cari'); n.focus(); n.setSelectionRange(cari.length, cari.length); };
+  }else{
+    const f = list.filter(o => o.tgl >= iso).sort((a,b) => a.tgl.localeCompare(b.tgl));
+    p.innerHTML = f.length ? `<div class="tw"><table><tr><th>Kunjungan</th><th>Kode</th><th>Nama</th><th>WhatsApp</th><th>Tiket</th><th>Status</th></tr>
+      ${f.map(o => `<tr><td>${tglIndo(o.tgl)}</td><td>${o.kode}</td><td>${esc(o.nama)}</td><td>${esc(o.wa)}</td><td>${o.item.map(i => i.n+' ×'+i.q).join(', ')}</td>
+      <td>${o.status === 'checkin' ? '<span class="badge">Sudah masuk</span>' : `<button class="btn sm" data-k="${o.kode}">Check-in</button>`}</td></tr>`).join('')}</table></div>` : '<p class="hist">Belum ada booking mendatang.</p>';
+    p.onclick = async e => { const b = e.target.closest('[data-k]'); if(b){ try{ await DB.doc('checkins/' + b.dataset.k).set({t:Date.now()}); }catch(x){} } };
+  }
+}
+$('tabs').addEventListener('click', e => { const b = e.target.closest('button'); if(b){ tab = b.dataset.t; drawAdmin(); } });
+$('csv').addEventListener('click', async () => {
+  try{
+    const dl = await claude.use('downloads'); if(!dl) return;
+    const q = v => '"' + String(v).replace(/"/g,'""') + '"';
+    const rows = orders.slice().sort((a,b) => a.dibuat.localeCompare(b.dibuat)).map(o => ({...o, status: checks[o.kode] ? 'checkin' : 'booking'})).map(o => [o.kode,o.dibuat,o.tgl,o.nama,o.wa,o.item.map(i => i.n+' x'+i.q).join('; '),o.total,o.status].map(q).join(','));
+    await dl.save({filename:'penjualan-ampera.csv', data:['kode,waktu_beli,tanggal_kunjungan,nama,whatsapp,tiket,total,status'].concat(rows).join('\n')});
+  }catch(e){}
+});
+
+
+// ===== Login admin (lapisan kedua di atas akses Editor/Pemilik) =====
+const KEY = 'ampera-adm';
+let cfg = null, gagal = 0, kunci = 0, subs = false;
+const hex = b => [...new Uint8Array(b)].map(x => x.toString(16).padStart(2,'0')).join('');
+async function kdf(t, salt){
+  const k = await crypto.subtle.importKey('raw', new TextEncoder().encode(t), 'PBKDF2', false, ['deriveBits']);
+  return hex(await crypto.subtle.deriveBits({name:'PBKDF2', salt:new TextEncoder().encode(salt), iterations:150000, hash:'SHA-256'}, k, 256));
+}
+async function gate(){
+  try{ const d = await DB.doc('config/admin').get(); cfg = d.exists ? d.data() : null; }catch(e){ cfg = null; }
+  let ok = false; try{ ok = !!cfg && sessionStorage.getItem(KEY) === cfg.hash; }catch(e){}
+  ok ? masuk() : formLogin();
+}
+function formLogin(){
+  $('dash').classList.add('hide');
+  const L = $('login'), baru = !cfg; L.classList.remove('hide');
+  L.innerHTML = `<p class="hist">${baru ? 'Pertama kali: buat username dan password admin. Simpan baik-baik.' : 'Masuk untuk membuka dasbor.'}</p>
+    <label for="lu">Username</label><input id="lu" autocomplete="username">
+    <label for="lp" style="margin-top:8px">Password</label><input id="lp" type="password" autocomplete="${baru ? 'new-password' : 'current-password'}">
+    ${baru ? '<label for="lp2" style="margin-top:8px">Ulangi password</label><input id="lp2" type="password" autocomplete="new-password">' : ''}
+    <div class="err" id="lerr"></div><button class="btn" id="lgo">${baru ? 'Buat akun admin' : 'Masuk'}</button>`;
+  const err = m => $('lerr').textContent = m;
+  const go = async () => {
+    const u = $('lu').value.trim().toLowerCase(), p = $('lp').value;
+    if(Date.now() < kunci) return err('Terlalu banyak percobaan. Coba lagi dalam ' + Math.ceil((kunci-Date.now())/1000) + ' detik.');
+    try{
+      if(baru){
+        if(u.length < 3 || p.length < 8) return err('Username min. 3 karakter dan password min. 8 karakter.');
+        if(p !== $('lp2').value) return err('Password tidak sama.');
+        const salt = hex(crypto.getRandomValues(new Uint8Array(8))), hash = await kdf(u + ':' + p, salt);
+        await DB.doc('config/admin').set({u, salt, hash}); cfg = {u, salt, hash}; masuk();
+      }else{
+        const h = await kdf(u + ':' + p, cfg.salt);
+        if(u === cfg.u && h === cfg.hash){ gagal = 0; masuk(); }
+        else{ if(++gagal >= 5){ gagal = 0; kunci = Date.now() + 30000; } err('Username atau password salah.'); }
+      }
+    }catch(e){ err('Gagal memproses login. Muat ulang halaman.'); }
+  };
+  $('lgo').onclick = go; L.onkeydown = e => { if(e.key === 'Enter') go(); };
+}
+function masuk(){
+  $('login').classList.add('hide'); $('dash').classList.remove('hide');
+  try{ sessionStorage.setItem(KEY, cfg.hash); }catch(e){}
+  if(!subs){
+    subs = true;
+    DB.collection('orders').onSnapshot(s => { orders = s.docs.flatMap(d => d.data().list || []); drawAdmin(); }, () => {});
+    DB.collection('checkins').onSnapshot(s => { checks = {}; s.docs.forEach(d => checks[d.id] = 1); drawAdmin(); }, () => {});
+  }
+  drawAdmin();
+}
+$('keluar').addEventListener('click', () => { try{ sessionStorage.removeItem(KEY); }catch(e){} gate(); });
+$('ganti').addEventListener('click', () => { cfg = null; formLogin(); });
+
+render(); muatRiwayat();
+</script>
+</body>
+</html>
